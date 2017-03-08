@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load thumbnail %}
+{% load cropping %}
+{% load countries %}
+{% get_country 'BR' as country %}
+{% load crispy_forms_tags %}
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title>Safari Joint</title>
+        <link rel="shortcut icon" type="image/x-icon" href="{% static "images/fav-icon.png"%}">
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Dosis:400,700' rel='stylesheet' type='text/css'>
+
+        <!-- Bootsrap -->
+        <link rel="stylesheet" href="{% static "css/bootstrap.min.css"%}">
+
+
+        <!-- Font awesome -->
+
+        <link rel="stylesheet" href="{% static "css/font-awesome.min.css"%}">
+
+
+        <!-- PrettyPhoto -->
+        <link rel="stylesheet" href="{% static "css/prettyPhoto.css"%}">
+
+        <!-- Template main Css -->
+        <link rel="stylesheet" href="{% static "css/style.css"%}">
+
+        <!-- Modernizr -->
+        <script src="{% static "js/modernizr-2.6.2.min.js"%}"></script>
+
+
+    </head>
+    <body>
+    <!-- NAVBAR
+    ================================================== -->
+    <header class="main-header">
+        <nav class="navbar navbar-static-top">
+            <div class="navbar-top">
+              <div class="container">
+                  <div class="row">
+                    <div class="col-sm-2 col-xs-12 text-left">
+                        <ul class="list-unstyled list-inline header-social">
+                            <li> <a href="https://www.facebook.com/safarijoint/" target="_blank"> <i class="fa fa-facebook"></i> </a> </li>
+                            <li> <a href="https://twitter.com/IvanMakando" target="_blank"> <i class="fa fa-twitter"></i>  </a> </li>
+                            <li> <a href="https://www.instagram.com/safarijoint/" target="_blank"> <i class="fa fa-instagram"></i>  </a> </li>
+                       </ul> <!-- /.header-social  -->
+                    </div>
+
+                    <div class="col-sm-5 col-xs-12">
+                        <ul class="list-unstyled list-inline header-contact">
+                            <li> <i class="fa fa-phone"></i>Help Line: <a href="tel:">+255 716 127 003 </a> </li>
+                             <li> <i class="fa fa-time"></i> It is <strong> {% now "jS F H:i" %}</strong> in Tanzania</li>
+                       </ul> <!-- /.header-contact  -->
+                    </div>
+                    <div class="col-sm-5 col-xs-12 text-right">
+                        <ul class="list-unstyled list-inline header-social">
+                            {% if user.is_authenticated%}
+                            <li>Logged In as  @{{user.username}}</li>
+                            {% else %}
+                            <li> Not Logged In</li>
+                            <li> <a href="/register"> Register </a></li>
+                            <li>or</li>
+                            <li> <a href="/login"> Login </a> </li>
+                            {% endif %}
+                       </ul> <!-- /.header-social  -->
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="navbar-main">
+              <div class="container">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="/home"><img src="{% static "/images/safari_joint.png"%}" alt="image"></a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse pull-right">
+                  <ul class="nav navbar-nav">
+                    <li><a href="/home"><span><i class="fa fa-home"></i></span> home</a></li>
+                    <li class="has-child"><a href="#"><span><i class="fa fa-user"></i></span> user</a>
+                      <ul class="submenu">
+                      {%if user.is_authenticated%}
+                        <li><a href="/profile/{{user.id}}"><span><i class="fa fa-angle-double-right"></i></span> {{user.username}}- Profile</a></li>
+
+                         <li><a href="/logout"><span><i class="fa fa-angle-double-right"></i></span> {{user.username}}- Logout</a></li>
+                      {%else%}
+                         <li><a href="/login"><span><i class="fa fa-angle-double-right"></i></span> Login</a></li>
+                         <li><a href="/register"><span><i class="fa fa-angle-double-right"></i></span> Register</a></li>
+                      {%endif%}
+                      </ul>
+                    </li>
+                    <li class="has-child"><a href="#"><span><i class="fa fa-chevron-circle-right"></i></span> partners</a>
+                      <ul class="submenu">
+                         <li class="submenu-item"><a href="/partners"><span><i class="fa fa-angle-double-right"></i></span> All Partners</a></li>
+                         <li class="submenu-item"><a href="/accomodation-providers"><span><i class="fa fa-angle-double-right"></i></span> Accomodation</a></li>
+                         <li class="submenu-item"><a href="/tour-operators"><span><i class="fa fa-angle-double-right"></i></span> Tour Operators</a></li>
+                         <li class="submenu-item"><a href="/parners-sign-up"><span><i class="fa fa-angle-double-right"></i></span> Add New Company</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="/all-trips"><span><i class="fa fa-th-large"></i></span>  trips</a></li>
+                    <li><a href="/parners-sign-up/" class="btn btn-small btn-secondary"> <span class="contact-icon"> <i class="fa fa-plus-square"></i></span> New Company </a></li>
+                  </ul>
+                </div> <!-- /#navbar -->
+              </div> <!-- /.container -->
+            </div> <!-- /.navbar-main -->
+        </nav>
+    </header> <!-- /. main-header -->
+
+	<div class="page-heading text-center">
+		<div class="container zoomIn animated">
+			<h1 class="page-title">{{page.page_main_heding}}<span class="title-under"></span></h1>
+			<p class="page-description">
+				{{page.page_head_introduction}}
+			</p>
+		</div>
+	</div>
+
+  <div class="section-home about-us fadeIn animated">
+      <div class="container">
+          <div class="row">
+            <div class="col-md-3 col-sm-3">
+                <div class="cause">
+                  {% if partner %}
+                          <img src="{% thumbnail partner.image 504x360 box=image.get_cropping_as_list crop detail %}" class="cause-img" alt="image"/>
+                  {%endif%}
+                    <div class="btn-holder text-center">
+                      <p>
+                        Reviews
+                      </p>
+                      <p><span class="contact-icon"> <i class="fa fa-star"></i></span> <strong>{{partner.company_review}}</strong></p>
+                    </div>
+                </div> <!-- /.cause -->
+                <a href="{{partner.company_website}}" class="btn btn-primary" target="_blank"><span class="contact-icon"> <i class="fa fa-link"></i></span> Visit This Company Website </a>
+            </div>
+              <div class="col-md-8 col-sm-8">
+                <div class="col-md-9 col-md-offset-1 col-contact">
+                  <h2 class="title-style-2"> Company Profile <span class="title-under"></span></h2>
+                  <div class="contact-items">
+                    <ul class="list-unstyled contact-items-list">
+                      <li class="contact-item"> <span class="contact-icon"> <i class="fa fa-home"></i></span> Name: <strong>{{partner.company_name|title}}</strong></li>
+                      <li class="contact-item"> <span class="contact-icon"> <i class="fa fa-tag"></i></span> Nature: <strong>{{partner.company_nature|capfirst}}</strong></li>
+                      <li class="contact-item"> <span class="contact-icon"> <i class="fa fa-calendar"></i></span> Established On: <strong>{{partner.company_established_on}}</strong></li>
+                      <li class="contact-item"> <span class="contact-icon"> <i class="fa fa-map-marker"></i></span> Company Located At: <strong>{{partner.company_location}}</strong></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div> <!-- /.about-us -->
+{% if partner.created_by.id == user.id %}
+  <div class="main-container fadeIn animated">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-12 col-form">
+          <h2 class="title-style-2">Search Bookings<span class="title-under"></span></h2>
+          {% if form.errors %}
+          <ul>
+            <li class="contact-item">{{ form.errors }}</li>
+          </ul>
+          {% endif %}
+          <form action="." method="post" enctype="multipart/form-data" class="contact-form ajax-form">{% csrf_token %}
+            {{form|crispy}}
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary pull-left" id="search-bookings" data-url="{% url 'trip-bookings-searches-view' partner_id=partner.id %}"><span><i class="fa fa-search"></i></span>  Search </button>
+            </div>
+              <div class="clearfix"></div>
+          </form>
+        </div>
+        
+        <div class="col-md-7 col-md-offset-1 col-contact">
+          <div class="contact-items">
+            <div class="col-md-12 table-responsive">
+            <p id="hide-this-text">Search Results will be displayed here!</p>
+                <div id="booking-search-results">
+                  
+                </div>
+            </div>
+        </div>
+        </div>
+
+      </div> <!-- /.row -->
+    </div>
+  </div>
+  {% endif %}
+{% if user.id == partner.created_by.id %}
+	<div class="main-container">
+		<div class="container">
+			<div class="row ">
+        {% if trip_bookings or room_bookings %}
+				<div class="col-md-12 table-responsive">
+          <h2 class="title-style-2">Your Bookings<span class="title-under"></span></h2>
+          <p>
+            {{partner.company_name|title}} Bookings.
+          </p>
+          {% if trip_bookings %}
+          <p>
+            View the details of the booked trip by clicking on its name.
+          </p>
+          {% endif %}
+          {% if room_bookings %}
+          <p>
+            View the details of the booked Room by clicking on its type.
+          </p>
+          {% endif %}
+          <table class="table table-style-1">
+            {% if trip_bookings %}
+            <thead>
+              <tr>
+                <th>Receipt Serial</th>
+                <th>Booking Date</th>
+                <th>Trip Booked Name</th>
+                <th>Booked By</th>
+                <th>Email Address</th>
+                <th>Phone Number</th>
+                <th>Country</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for trip_bookings in trip_bookings %}
+              <tr>
+                <td>{{trip_bookings.receipt_serial}}</td>
+                <td>{{trip_bookings.day_of_booking}}</td>
+                <td> <a href="/Booking_trip/{{trip_bookings.trip_booked.id}}">{{trip_bookings.trip_booked.trip_name|title}}</a></td>
+                <td>{{trip_bookings.full_name|title}}</td>
+                <td>{{trip_bookings.email_address}}</td>
+                <td>{{trip_bookings.phone_number}}</td>
+                <td>{{trip_bookings.your_country.name}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            {% endif %}
+
+            {% if room_bookings %}
+            <thead>
+              <tr>
+                <th>Receipt Serial</th>
+                <th>Reservation Date</th>
+                <th>Room Booked</th>
+                <th>Booked By</th>
+                <th>Arriving On</th>
+                <th>Departing On</th>
+                <th>Email Address</th>
+                <th>Phone Number</th>
+                <th>Country</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for room_bookings in room_bookings %}
+              <tr>
+                <td>{{room_bookings.receipt_serial}}</td>
+                <td>{{room_bookings.reservation_placed_on}}</td>
+                <td><a href="/Booking_a_room/{{room_bookings.room_booked.id}}">{{room_bookings.room_booked|title}}</a></td>
+                <td>{{room_bookings.your_name|title}}</td>
+                <td>{{room_bookings.arrival_date}}</td> 
+                <td>{{room_bookings.depature_date}}</td>
+                <td>{{room_bookings.email_address}}</td>
+                <td>{{room_bookings.phone_number}}</td>
+                <td>{{room_bookings.country.name}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            {% endif %}
+          </table>
+				</div>
+        {% else %}
+        <div class="col-md-3 col-sm-6">
+        {% if trip_bookings %}
+          <div class="btn-holder">
+              <a href="/all-trips/{{partner.id}}" class="btn btn-primary"> All {{partner.company_name|title}} Trips</a>
+          </div>
+        {% endif %}
+        {% if room_bookings %}
+          <div class="btn-holder">
+              <a href="/all_available_accomodation-type/{{partner.id}}" class="btn btn-primary"> All {{partner.company_name|title}} Rooms</a>
+          </div>
+        {%endif %}
+        </div>
+        {%endif%}
+			</div>
+		</div>
+	</div> <!-- /.main-container  -->
+{% else %}
+
+
+<div class="main-container contains-all">
+  <div class="container">
+    <div class="col-md-6 fadeIn animated">
+      <div class="row">
+        <div class="btn-holder">
+          <a href="/parners-sign-up/" class="btn btn-primary">Partner SignUp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> <!-- /.main-container  -->
+
+
+
+
+{% endif %}
+
+<footer class="main-footer">
+    <div class="footer-top"></div>
+    <div class="footer-main">
+        <div class="container">
+            <div class="row">
+              <div class="col-md-4">
+                  <div class="footer-col">
+                      <h4 class="footer-title">Contact Info<span class="title-under"></span></h4>
+                      <div class="footer-content">
+                        <div class="contact-items">
+                          <ul class="list-unstyled contact-items-list">
+                            <li class="contact-item"> <span class="contact-icon"> <i class="fa fa-map-marker"></i></span> P.O.BOX 7637, Moshi-Tanzania</li>
+                            <li class="contact-item"> <span class="contact-icon"> <i class="fa fa-phone"></i></span> +255 716 127003 </li>
+                            <li class="contact-item"> <span class="contact-icon"> <i class="fa fa-envelope"></i></span> safarijoint@gmail.com</li>
+                          </ul>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col-md-4">
+                  <div class="footer-col">
+                      <h4 class="footer-title">Resources<span class="title-under"></span></h4>
+                      <div class="footer-content">
+                        <p><a href="/feeds"><span class="contact-icon"> <i class="fa fa-coffee"></i></span> Feeds</a></p>
+                        <p><a href="/site-credits"><span class="contact-icon"> <i class="fa fa-child"></i></span> Site Credits</a></p>
+                        <p><a href="/partners"><span class="contact-icon"> <i class="fa fa-chevron-circle-right"></i></span> Our Partners</a></p>
+                        <p><a href="/parners-sign-up"><span class="contact-icon"> <i class="fa fa-handshake-o"></i></span> Become A Partner</a></p>
+                        <p><a href="/terms-and-conditions"> <span class="contact-icon"> <i class="fa fa-hand-stop-o"></i></span> Terms & Coniditions</a></p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="footer-col">
+                      <h4 class="footer-title">ABOUT SAFARI JOINT<span class="title-under"></span></h4>
+                      <div class="footer-content">
+                        <p>
+                          Safari Joint is a company that offers a highest quality service and products that are within your budget. We have strong experience and a great team of people that guarantee the highest quality of service and co-ordination. Our company highly values its' clients. Your satisfaction and happiness is our first priority.
+                        </p>
+                        <a href="/about-us/" class="btn btn-primary"><span class="contact-icon"> <i class="fa fa-suitcase"></i></span> About Us</a>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="footer-col">
+                      <h4 class="footer-title">Safari Trips<span class="title-under"></span></h4>
+                      <div class="footer-content">
+                        <p><a href="/all-trips/"><span class="contact-icon"> <i class="fa fa-clock-o"></i></span> All Trips</a></p>
+                        <p><a href="/all-tags/"><span class="contact-icon"> <i class="fa fa-hashtag"></i></span> All Trip tags</a></p>
+                        <p><a href="/all-one-day-trips/"><span class="contact-icon"> <i class="fa fa-hourglass-end"></i></span> One Day Trips Only</a></p>
+                        <p><a href="/all-trips-this-month/"><span class="contact-icon"> <i class="fa fa-hourglass-half"></i></span> {% now "F" %} Month Trips</a></p>
+                        <p><a href="/tour-operators/"><span class="contact-icon"> <i class="fa fa-binoculars"></i></span> Tour Operator Companies</a></p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="footer-col">
+                      <h4 class="footer-title">Accomodations<span class="title-under"></span></h4>
+                      <div class="footer-content">
+                        <p><a href="/accomodation-providers/"> <span class="contact-icon"> <i class="fa fa-bed"></i></span> Accomodation Providers</a></p>
+                      </div>
+                  </div>
+              </div>
+
+                    <div class="col-md-4">
+                        <div class="footer-col">
+                            <h4 class="footer-title">Contact us <span class="title-under"></span></h4>
+                            <div class="footer-content">
+                                <div class="footer-form" >
+                                    <form action="." method="post" class="ajax-form">{% csrf_token %}
+                                         <div class="form-group">
+                                            <input type="email" name="email" id="id_email" class="form-control" placeholder="Your E-mail" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea name="message" id="id_message" class="form-control" placeholder="Message" required></textarea>
+                                        </div>
+                                        <div class="form-group alerts">
+                                            <div class="alert alert-success" role="alert">
+                                            </div>
+
+                                            <div class="alert alert-danger" role="alert">
+                                            </div>
+                                        </div>
+                                         <div class="form-group">
+                                            <button type="submit" id="send" class="btn btn-submit pull-right">Send message</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container text-right"> Copyright Safari Joint - {% now "Y"%} </div>
+    </div>
+</footer> <!-- main-footer -->
+
+        <!-- jQuery -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="{% static "js/jquery-1.11.1.min.js"%}"><\/script>')</script>
+
+        <!-- Bootsrap javascript file -->
+
+        <script src="{% static "js/bootstrap.min.js"%}"></script>
+
+        <!-- Bootstrap Date-Picker Plugin -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+        <!-- ajax javascript file -->
+        <script src="{% static "js/bookings-search.js"%}"></script>
+
+        <!-- ajax javascript file -->
+        <script src="{% static "js/bookings-accm-search.js"%}"></script>
+
+
+        <!-- PrettyPhoto javascript file -->
+
+        <script src="{% static "js/jquery.prettyPhoto.js"%}"></script>
+
+
+        <!--contact us email sending ajax -->
+        <script src="{% static "js/contact-email.js"%}"></script>
+
+
+        <!-- Google map  -->
+        <script src="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places" type="text/javascript"></script>
+
+
+        <!-- Template main javascript -->
+        <script src="{% static "/js/main.js"%}"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+
+<script>
+        $(document).ready(function(){
+          $(".datepicker").css("z-index","100");
+          var date_input=$('input[name="booking_date"]'); //our date input has the name "date"
+          var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+          var options={
+            format: 'yyyy-mm-dd',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+          };
+          date_input.datepicker(options);
+        })
+    </script>
+
+
+
+
+    <script type="text/javascript">
+
+              $(function(){
+                    $('#search-bookings').click(function(e) {
+                      $("#hide-this-text").hide();
+                    });
+              });
+
+      </script>
+
+    </body>
+</html>

@@ -1,0 +1,12 @@
+
+      {% if partners%}
+      {% for partners in partners %}
+        <li class="dropdown-item-hide">
+          <a href="/about-partner-{{partners.id}}/" style="padding-left:10px;"> {{partners.company_name|title}}</a>
+        </li>
+      {% endfor %}
+      {% else %}
+      <li class="dropdown-item-hide" style="padding-left:10px;">
+        Nothing to show
+      </li>
+      {% endif %}

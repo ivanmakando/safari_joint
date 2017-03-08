@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title>Safari Joint</title>
+        <link rel="shortcut icon" type="image/x-icon" href="{% static "images/fav-icon.png"%}">
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Dosis:400,700' rel='stylesheet' type='text/css'>
+
+        <!-- Bootsrap -->
+        <link rel="stylesheet" href="{% static "css/bootstrap.min.css"%}">
+
+
+        <!-- Font awesome -->
+
+        <link rel="stylesheet" href="{% static "css/font-awesome.min.css"%}">
+
+
+        <!-- Owl carousel -->
+        <link rel="stylesheet" href="{% static "css/owl.carousel.css"%}">
+
+
+        <!-- Template main Css -->
+        <link rel="stylesheet" href="{% static "css/style.css"%}">
+
+
+
+        <!-- Modernizr -->
+
+        <script src="{% static "js/modernizr-2.6.2.min.js"%}"></script>
+
+
+
+    </head>
+
+    <body>
+
+
+    <header class="main-header">
+
+
+        <nav class="navbar navbar-static-top">
+
+            <div class="navbar-top">
+
+              <div class="container">
+                  <div class="row">
+
+                    <div class="col-sm-6 col-xs-12">
+
+                        <ul class="list-unstyled list-inline header-contact">
+                            <li> <i class="fa fa-phone"></i> <a href="tel:">+255 716 127003 </a> </li>
+                             <li> <i class="fa fa-envelope"></i> <a href="mailto:safarijoint@gmail.com">info@safarijoint.com</a> </li>
+                             <li> <i class="fa fa-time"></i> It is <strong> {% now "jS F H:i" %}</strong> in Tanzania</li>
+                       </ul> <!-- /.header-contact  -->
+
+                    </div>
+
+                    <div class="col-sm-6 col-xs-12 text-right">
+
+                        <ul class="list-unstyled list-inline header-social">
+
+                            <li> <a href="www.facebook.com/safarijoint"> <i class="fa fa-facebook"></i> </a> </li>
+                            <li> <a href="www.twitter.com/safarijoint"> <i class="fa fa-twitter"></i>  </a> </li>
+                            <li> <a href="www.instagram.com/safarijoint"> <i class="fa fa-instagram"></i>  </a> </li>
+                       </ul> <!-- /.header-social  -->
+                    </div>
+                  </div>
+              </div>
+            </div>
+
+            <div class="navbar-main">
+
+              <div class="container">
+
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+
+                  </button>
+
+                  <a class="navbar-brand" href="/home"><img src="{% static "/images/safari_joint.png"%}" alt="image"></a>
+                </div>
+
+                <div id="navbar" class="navbar-collapse collapse pull-right">
+
+                  <ul class="nav navbar-nav">
+
+                    <li><a class="is-active" href="/home">Home</a></li>
+                    <li class="has-child"><a href="#">Mt. Kilimanjaro Climbing</a>
+                      <ul class="submenu">
+                         <li class="submenu-item"><a href="/seven-days-lemosho">7 Days Lemosho Route</a></li>
+                         <li class="submenu-item"><a href="/eight-days-lemosho">8 Days Lemosho Route</a></li>
+                         <li class="submenu-item"><a href="/five-days-marangu">5 Days Marangu Route</a></li>
+                         <li class="submenu-item"><a href="/six-days-marangu">6 Days Marangu Route</a></li>
+                         <li class="submenu-item"><a href="/six-days-machame">6 Days Machame Route</a></li>
+                         <li class="submenu-item"><a href="/seven-days-machame">7 Days Machame Route</a></li>
+                         <li class="submenu-item"><a href="/six-days-rongai">6 Days Rongai Route</a></li>
+                         <li class="submenu-item"><a href="/seven-days-rongai">7 Days Rongai Route</a></li>
+                         <li class="submenu-item"><a href="/six-days-umbwe">6 Days Umbwe Route</a></li>
+                         <li class="submenu-item"><a href="/seven--days-umbwe">7 Days Umbwe Route</a></li>
+                         <li class="submenu-item"><a href="/eight-days-northern-circuit">8 Days Northern Circuit Route</a></li>
+                         <li class="submenu-item"><a href="/nine-days-northern-circuit">9 Days Northern Circuit Route</a></li>
+
+                      </ul>
+                    </li>
+
+                    <li class="has-child"><a href="#">Tours & Safaris</a>
+                      <ul class="submenu">
+                         <li class="submenu-item"><a href="/one-day-safari-trip">One Day Safari Trip</a></li>
+                         <li class="submenu-item"><a href="/two-day-safari-trip">Two Day Safari Trip</a></li>
+                         <li class="submenu-item"><a href="/three-day-safari-trip">Three Day Safari Trip</a></li>
+                         <li class="submenu-item"><a href="/four-day-safari-trip">Four Day Safari Trip</a></li>
+                         <li class="submenu-item"><a href="/five-day-safari-trip">Five Day Safari Trip</a></li>
+                         <li class="submenu-item"><a href="/six-day-safari-trip">Six Day Safari Trip</a></li>
+                         <li class="submenu-item"><a href="/seven-day-safari-trip">Seven Day Safari Trip</a></li>
+                         <li class="submenu-item"><a href="/seven-day-cultural-safari-trip">Seven Day Cultural Safari</a></li>
+                      </ul>
+                    </li>
+                    <li class="has-child"><a href="#">Account</a>
+                      <ul class="submenu">
+                      {%if user.is_authenticated%}
+                         <li class="/logout"><a href="/logout">Logout</a></li>
+                      {%else%}
+                         <li class="/login"><a href="/login">Login</a></li>
+                         <li class="/register"><a href="/register">Register</a></li>
+                      {%endif%}
+                      </ul>
+                    </li>
+                    <li><a href="/about">About</a></li>
+
+                    <li><a href="/gallery" id="nav-image"><img src="{% static "/images/icons/nav-camera.png"%}" alt="image"></a></li>
+
+                  </ul>
+
+                </div> <!-- /#navbar -->
+
+              </div> <!-- /.container -->
+
+            </div> <!-- /.navbar-main -->
+
+
+        </nav>
+
+    </header> <!-- /. main-header -->
+
+
+
+
+    <!-- Carousel
+    ================================================== -->
+    <div id="homeCarousel" class="carousel slide carousel-home" data-ride="carousel">
+
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#homeCarousel" data-slide-to="1"></li>
+            <li data-target="#homeCarousel" data-slide-to="2"></li>
+          </ol>
+
+          <div class="carousel-inner" role="listbox">
+
+            <div class="item active">
+
+              <img src="{% static "/images/slider/home-slider-1.jpg"%}" alt="image">
+
+              <div class="container">
+
+                <div class="carousel-caption">
+
+                  <h2 class="carousel-title bounceInDown animated slow">Because they need your help</h2>
+                  <h4 class="carousel-subtitle bounceInUp animated slow ">Do not let them down</h4>
+                  <a href="#" class="btn btn-lg btn-secondary hidden-xs bounceInUp animated slow" data-toggle="modal" data-target="#donateModal">DONATE NOW</a>
+
+                </div> <!-- /.carousel-caption -->
+
+              </div>
+
+            </div> <!-- /.item -->
+
+
+            <div class="item ">
+
+              <img src="{% static "/images/slider/home-slider-2.jpg"%}" alt="image">
+
+
+
+
+              <div class="container">
+
+                <div class="carousel-caption">
+
+                  <h2 class="carousel-title bounceInDown animated slow">Together we can improve their lives</h2>
+                  <h4 class="carousel-subtitle bounceInUp animated slow"> So let's do it !</h4>
+                  <a href="#" class="btn btn-lg btn-secondary hidden-xs bounceInUp animated" data-toggle="modal" data-target="#donateModal">DONATE NOW</a>
+
+                </div> <!-- /.carousel-caption -->
+
+              </div>
+
+            </div> <!-- /.item -->
+
+
+
+
+            <div class="item ">
+
+              <img src="{% static "/images/slider/home-slider-3.jpg"%}" alt="image">
+
+
+
+              <div class="container">
+
+                <div class="carousel-caption">
+
+                  <h2 class="carousel-title bounceInDown animated slow" >A penny is a lot of money, if you have not got a penny.</h2>
+                  <h4 class="carousel-subtitle bounceInUp animated slow">You can make the diffrence !</h4>
+                  <a href="#" class="btn btn-lg btn-secondary hidden-xs bounceInUp animated slow" data-toggle="modal" data-target="#donateModal">DONATE NOW</a>
+
+                </div> <!-- /.carousel-caption -->
+
+              </div>
+
+            </div> <!-- /.item -->
+
+          </div>
+
+          <a class="left carousel-control" href="#homeCarousel" role="button" data-slide="prev">
+            <span class="fa fa-angle-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+
+          <a class="right carousel-control" href="#homeCarousel" role="button" data-slide="next">
+            <span class="fa fa-angle-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+
+    </div><!-- /.carousel -->
+
+    <div class="main-container">
+
+      <div class="container">
+
+        <div class="row fadeIn animated">
+
+          <div class="col-md-6">
+
+            <h2 class="title-style-2">{{page.page_sub_heading_one}}<span class="title-under"></span></h2>
+
+            {% if page.page_sub_heading_picture %}
+
+            <img src="/static/{{page.page_sub_heading_picture }}" alt="image">
+
+            {%endif%}
+
+
+            <div class="contact-items">
+              <p>
+                {{page.sub_heading_content_one}}
+              </p>
+          </div>
+            <div class="contact-items">
+              <a href="/about" class="btn btn-primary">Learn More</a>
+            </div>
+
+          </div>
+
+          <div class="col-md-6">
+
+            <h2 class="title-style-2"> {{page.page_sub_heading_two}} <span class="title-under"></span></h2>
+            {% if page.page_sub_heading_picture_2 %}
+            <img src="/static/{{page.page_sub_heading_picture_2}}" alt="image">
+            {%endif%}
+
+            <!--<img src="{% static "/images/reasons/we-fight-togother-1.jpg"%}" alt="image">-->
+            <div class="contact-items">
+              <p>
+                {{page.sub_heading_content_two}}
+              </p>
+          </div>
+          <div class="contact-items">
+            <a href="/about-tanzania" class="btn btn-primary">Learn More</a>
+          </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div> <!-- /.main-container  -->
+
+
+
+    <div class="section-home our-causes animate-onscroll fadeIn">
+        <div class="container">
+            <h2 class="title-style-1">{{best_sell.team_heading}}<span class="title-under"></span></h2>
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="cause">
+                      {% if best_sell.team_image_one %}
+                      <img src="/static/{{best_sell.team_image_one}}" alt="image">
+                      {%endif%}
+                        <h4 class="cause-title">{{best_sell.team_heading_one}}</h4>
+                        <div class="cause-details">
+                            {{best_sell.team_content_one|truncatechars:200}}
+                        </div>
+                        <div class="btn-holder text-center">
+                          <a href="/seven-days-lemosho" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div> <!-- /.cause -->
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="cause">
+                      {% if best_sell.team_image_two %}
+                      <img src="/static/{{best_sell.team_image_two}}" alt="image">
+                      {%endif%}
+                        <h4 class="cause-title">{{best_sell.team_heading_two}}</h4>
+                        <div class="cause-details">
+                            {{best_sell.team_content_two|truncatechars:200}}
+                        </div>
+                        <div class="btn-holder text-center">
+                          <a href="/six-days-machame" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div> <!-- /.cause -->
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="cause">
+                      {% if best_sell.team_image_three %}
+                      <img src="/static/{{best_sell.team_image_three}}" alt="image">
+                      {%endif%}
+                        <h4 class="cause-title">{{best_sell.team_heading_three}}</h4>
+                        <div class="cause-details">
+                            {{best_sell.team_content_three|truncatechars:200}}
+                        </div>
+                        <div class="btn-holder text-center">
+                          <a href="/one-day-safari-trip" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div> <!-- /.cause -->
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="cause">
+                      {% if best_sell.team_image_four %}
+                      <img src="/static/{{best_sell.team_image_four}}" alt="image">
+                      {%endif%}
+                        <h4 class="cause-title">{{best_sell.team_heading_four}}</h4>
+                        <div class="cause-details">
+                            {{best_sell.team_content_four|truncatechars:200}}
+                        </div>
+                        <div class="btn-holder text-center">
+                          <a href="/seven-day-safari-trip" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div> <!-- /.cause -->
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- /.our-causes -->
+
+
+    <div class="main-container">
+
+      <div class="container">
+        <h2 class="title-style-1">Best Of {{full_month_name}}<span class="title-under"></span></h2>
+        <div class="row fadeIn animated">
+
+          <div class="col-md-6">
+
+            <h2 class="title-style-2"> Safari Trips <span class="title-under"></span></h2>
+            <table class="table table-style-1">
+              <thead>
+                <tr>
+                  <th>Depature</th>
+                  <th>Return</th>
+                  <th>Days</th>
+                  <th>Price</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for dates in dates|slice:":4" %}
+                {% if dates.is_this_month == True %}
+                {% if dates.trip_type == 'SAFARI TRIP' %}
+
+                <tr>
+                  <!--<th scope="row">{{dates.depature_date}}</th>-->
+                  <td>{{dates.depature_date}}</td>
+                  <td>{{dates.returning_date}}</td>
+                  <td>{{dates.days_sepent}} Days</td>
+                  <td>{{dates.trip_price}} USD</td>
+                  {% if dates.is_past_due == True %}
+                  <td><a href="/Booking_trip/{{dates.id}}" class="btn btn-primary"> Book</a></td>
+                  {%else%}
+                  <td> Not Available</td>
+                  {% endif %}
+                </tr>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+
+            <p>You can see and book all available trips by clicking here. <a href="/all-trips" class="btn btn-primary"> All Trips</a></p>
+
+          </div>
+
+          <div class="col-md-6">
+
+            <h2 class="title-style-2"> Mountain Trips <span class="title-under"></span></h2>
+            <table class="table table-style-1">
+              <thead>
+                <tr>
+                  <th>Depature</th>
+                  <th>Return</th>
+                  <th>Days</th>
+                  <th>Price</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for dates in dates|slice:":4" %}
+                {% if dates.trip_type == 'MOUNTAIN TRIP' %}
+                <tr>
+                  <!--<th scope="row">{{dates.depature_date}}</th>-->
+                  <td>{{dates.depature_date}}</td>
+                  <td>{{dates.returning_date}}</td>
+                  <td>{{dates.days_sepent}} Days</td>
+                  <td>{{dates.trip_price}} USD</td>
+                  {% if dates.is_past_due == True %}
+                  <td><a href="/Booking_trip/{{dates.id}}" class="btn btn-primary"> Book</a></td>
+                  {%else%}
+                  <td> Not Available</td>
+                  {% endif %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div> <!-- /.main-container  -->
+
+
+<div class="main-container">
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-12 fadeIn animated">
+
+        <div id="cause-carousel" class="carousel slide cause-carousel" data-ride="carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+
+              <div class="item active">
+                <div class="page-bottom text-center">
+                      <p class="page-description">"Hello These are the feeds by the users of our services post yours here!"</p>
+                      <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#donateModal"> GIVE FEEDBACK</a>
+                </div>
+              </div>
+
+              {%for feeds in feeds%}
+              <div class="item">
+                <div class="page-bottom text-center">
+                      <p class="page-description">"{{feeds.feed_body|truncatechars:130}}"</p>
+                      <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#donateModal"> GIVE FEEDBACK</a>
+                </div>
+              </div>
+              {%endfor%}
+            </div>
+        </div>
+
+      </div>
+
+    </div>
+    </div>
+
+  </div>
+</div> <!-- /.main-container  -->
+
+<footer class="main-footer">
+    <div class="footer-top"></div>
+
+    <div class="footer-main">
+        <div class="container">
+
+            <div class="row">
+              <div class="col-md-4">
+                  <div class="footer-col">
+                      <h4 class="footer-title">Contact Info<span class="title-under"></span></h4>
+                      <div class="footer-content">
+                        <div class="contact-items">
+
+                          <ul class="list-unstyled contact-items-list">
+                            <li class="contact-item"> <span class="contact-icon"> <i class="fa fa-map-marker"></i></span> P.O.BOX 7637, Moshi-Tanzania</li>
+                            <li class="contact-item"> <span class="contact-icon"> <i class="fa fa-phone"></i></span> +255 716 127003 /</li>
+                            <li class="contact-item"> <span class="contact-icon"> <i class="fa fa-phone"></i></span> +255 759 380149</li>
+
+
+                            <li class="contact-item"> <span class="contact-icon"> <i class="fa fa-envelope"></i></span> info@safarijoint.com /</li>
+                            <li class="contact-item"> <span class="contact-icon"> <i class="fa fa-envelope"></i></span> safarijoint@gmail..com</li>
+
+                          </ul>
+                        </div>
+
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col-md-4">
+                  <div class="footer-col">
+                      <h4 class="footer-title">Resources<span class="title-under"></span></h4>
+                      <div class="footer-content">
+                        <p><a href="/faq">F.A.Qs</a></p>
+                        <p><a href="/feeds">Feeds</a></p>
+                        <p><a href="/contact">Contact Us</a></p>
+                        <p><a href="/partners">Our Partners</a></p>
+                        <p><a href="/about-tanzania">About Tanzania</a></p>
+                        <p><a href="/terms-and-conditions">Terms & Coniditions</a></p>
+                      </div>
+                  </div>
+              </div>
+
+
+              <div class="col-md-4">
+                  <div class="footer-col">
+                      <h4 class="footer-title">MT. kILIMANJARO<span class="title-under"></span></h4>
+                      <div class="footer-content">
+                              <p><a href="/when-to-climb-kilimanjaro">When To Climb Kilimanjaro</a></p>
+                              <p><a href="/kilimanjaro-pack-list">When To Climb Kilimanjaro Pack List</a></p>
+                              <p><a href="/kilimanjaro-climbing-tips">Tips For Kilimanjaro Climbing</a></p>
+                              <p><a href="/kilimanjaro-pack-list">When To Climb Kilimanjaro Pack List</a></p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="footer-col">
+                      <h4 class="footer-title">Safari<span class="title-under"></span></h4>
+                      <div class="footer-content">
+                        <p><a href="/animal-migrations">Animals Migrations</a></p>
+                        <p><a href="/how-to-plan-your-safari">How To Plan Your Safari</a></p>
+                        <p><a href="/tanzania-safari-packList">Tanzania Safari PackList</a></p>
+                      </div>
+                  </div>
+              </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="container text-right"> Copyright Safari Joint - {% now "Y"%} </div>
+    </div>
+</footer> <!-- main-footer -->
+
+
+    <!-- Donate Modal -->
+    <div class="modal fade" id="donateModal" tabindex="-1" role="dialog" aria-labelledby="donateModalLabel" aria-hidden="true">
+
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="donateModalLabel">FEEDS FORM</h4>
+          </div>
+          <div class="modal-body">
+            {% if form.errors %}
+            <ul>
+              <li class="contact-item">{{ form.errors }}</li>
+            </ul>
+            {% endif %}
+
+                <form class="form-donation" action="." method="post">{% csrf_token %}
+
+                        <h3 class="title-style-1 text-center">Thank you for your feedback <span class="title-under"></span>  </h3>
+
+                        <div class="row">
+
+                            <div class="form-group col-md-12 ">
+                                <!--<input type="text" class="form-control" id="amount" placeholder="AMOUNT(€)">-->
+                                <input class="form-control" id="id_posted_by" maxlength="200" name="posted_by" type="text" placeholder="Full Name" required />
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="form-group col-md-12">
+                                <!--<textarea cols="30" rows="4" class="form-control" name="note" placeholder="Additional note"></textarea>-->
+                                <!--<textarea cols="40" id="id_feed_body" name="feed_body" rows="4" placeholder="Your Feedback" required></textarea>-->
+                                <textarea cols="30" rows="4" class="form-control" id="id_feed_body" name="feed_body" placeholder="Your Feedback (As short as you can!)" required></textarea>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="form-group col-md-12">
+                                <button type="submit" class="btn btn-primary pull-right" name="donateNow" >SUBMIT</button>
+                            </div>
+
+                        </div>
+
+                </form>
+
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- /.modal -->
+
+
+
+
+
+    <!--  Scripts
+    ================================================== -->
+
+    <!-- jQuery -->
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{% static "/js/jquery-1.11.1.min.js"%}"><\/script>')</script>
+
+    <!-- Bootsrap javascript file -->
+    <script src="{% static "/js/bootstrap.min.js"%}"></script>
+
+
+
+    <!-- owl carouseljavascript file -->
+
+    <script src="{% static "/js/owl.carousel.min.js"%}"></script>
+
+
+    <!-- Template main javascript -->
+    <script src="{% static "/js/main.js"%}"></script>
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <script>
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','UA-XXXXX-X');ga('send','pageview');
+    </script>
+
+    </body>
+</html>

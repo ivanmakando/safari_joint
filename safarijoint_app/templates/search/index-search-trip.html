@@ -1,0 +1,41 @@
+    <table class="table table-style-1 table-fixed dropdown-item-hide">
+    <!--<p><span><i class="fa fa-close"></i></span></p>-->
+          {% if results %}
+          <!--<a id="close"><i class="fa fa-close"></i></span></a>-->
+            <thead>
+              <tr>
+                <th>Trip</th>
+                <th>Price</th>
+                <th>Tag</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            {% for results in results|slice:":10" %}
+            <tbody>
+              <tr>
+                <td>{% if results.tripdiscount %}{% if results.tripdiscount.begin_discount == True %}<sup><span><i class="fa fa-cog"></i></span></sup>{% endif %}{% endif %}{{results.trip_name|title}}</td>
+                
+                {% if results.tripdiscount %}
+                <td class="col-md-2 col-sm-2">{% if results.tripdiscount.begin_discount == True %} {{results.tripdiscount.ammount_remaining }} USD {% else %} {{results.trip_price}} USD {% endif %}</td>
+                {% else %}
+                <td class="col-md-2 col-sm-2">{{results.trip_price}} USD</td>
+                {% endif %}
+                <td>#{{results.trip_tag}}</td>
+                {% if results.is_past_due == True %}
+                <td><a href="/Booking_trip/{{results.id}}"><span><i class="fa fa-bookmark-o"></i></span> View & Book</a></td>
+                {%else%}
+                <td> Unavailable</td>
+                {% endif %}
+              </tr>
+            </tbody>
+            {% endfor %}
+
+        {% else %}
+        <tbody>
+          <tr>
+            <td>Sorry There are no Resuts For The Trip Searched!</td>
+          </tr>
+        </tbody>
+        {%endif%}
+
+  </table>

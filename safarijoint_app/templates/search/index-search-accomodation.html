@@ -1,0 +1,34 @@
+      <table class="table table-style-1 dropdown-item-hide">
+          {% if results %}
+          <!--<a id="close"><i class="fa fa-close"></i></span></a>-->
+            <thead>
+              <tr>
+                <th>Company</th>
+                <th>Price</th>
+                <th>Action</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for results in results|slice:":10" %}
+              <tr>
+                <td> <a href="/about-partner-{{results.owner_company.id}}">{{results.owner_company|slice:":10"|title}}</a></td>
+                <td>{{results.price_USD}} USD</td>
+                <td><a href="/Booking_a_room/{{results.id}}"><span><i class="fa fa-bookmark-o"></i></span> View & Book</a></td>
+                {% if results.availability == True %}
+                <td><span><i class="fa fa-check-circle"></i></span></td>
+                {% else %}
+                <td><span>Full</td>
+                {% endif %}
+              </tr>
+              {% endfor %}
+            </tbody>
+        {% else %}
+        <!--<a id="close"><i class="fa fa-close"></i></span></a>-->
+        <tbody>
+          <tr>
+            <td>Sorry There are no Rooms of That Type Available in the Area Searched!</td>
+          </tr>
+        </tbody>
+        {%endif%}
+    </table>

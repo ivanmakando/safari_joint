@@ -1,0 +1,57 @@
+ 
+  {% if bookings or acc_booking %}
+    {% if bookings %}
+    <table class="table table-style-1 table-fixed dropdown-item-hide">
+          {% if bookings %}
+            <thead>
+              <tr>
+                <th>Receipt Serial</th>
+                <th>Name</th>
+                <th>Booked On</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for bookings in bookings|slice:":10" %}
+              <tr>
+                <td>{{bookings.receipt_serial}}</td>
+                <td>{{bookings.full_name|title}}</td>
+                <td>{{bookings.day_of_booking}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        {% endif %}
+  </table>
+  {% endif %}
+
+
+{% if acc_booking %}
+  <table class="table table-style-1 table-fixed dropdown-item-hide">
+          {% if acc_booking %}
+            <thead>
+              <tr>
+                <th>Receipt Serial</th>
+                <th>Name</th>
+                <th>Booked On</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for acc_booking in acc_booking|slice:":10" %}
+              <tr>
+                <td>{{acc_booking.receipt_serial}}</td>
+                <td>{{acc_booking.your_name|title}}</td>
+                <td>{{acc_booking.reservation_placed_on}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        {% endif %}
+  </table>
+  {% endif %}
+  {% else %}
+  <table class="table table-style-1 table-fixed dropdown-item-hide">
+        <tbody>
+          <tr>
+            <td>Sorry we could not find any bookings according to credentials provided!</td>
+          </tr>
+        </tbody>
+  </table>
+  {% endif %}
